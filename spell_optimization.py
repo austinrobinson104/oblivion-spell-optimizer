@@ -38,6 +38,9 @@ def brute_force_near_budget(budget, max_mag, duration, area, fire_mult, frost_mu
                 total_dmg = duration * (fire_dmg + frost_dmg + shock_dmg)
                 if total_dmg > best[0]:
                     best = (total_dmg, fire, frost, shock, total_cost)
+                elif total_dmg == best[0] and total_cost < best[4]:
+                    best = (total_dmg, fire, frost, shock, total_cost)
+                    
     return best
 
 
