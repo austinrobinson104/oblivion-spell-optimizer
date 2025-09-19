@@ -35,7 +35,7 @@ def brute_force_near_budget(budget, max_mag, duration, area, fire_mult, frost_mu
                     break
 
                 shock_dmg = damage_after_effectiveness(shock, shock_mult, eff)
-                total_dmg = fire_dmg + frost_dmg + shock_dmg
+                total_dmg = duration * (fire_dmg + frost_dmg + shock_dmg)
                 if total_dmg > best[0]:
                     best = (total_dmg, fire, frost, shock, total_cost)
     return best
@@ -163,6 +163,9 @@ luck = st.slider("🍀 Luck", min_value=0, max_value=120, value=50)
 skill = math.floor(skill_raw + (0.4 * (luck - 50)))
 if skill > 100:
     skill = 100
+
+if skill < 0:
+    skill = 0
 
 # ---------------- Optimize ----------------
 st.markdown("---")
