@@ -88,6 +88,11 @@ st.markdown(
         color: #222 !important;
     }
 
+    /* Radio button option text */
+    .stRadio div[role="radiogroup"] label > div > span {
+    color: #222 !important;  /* dark gray */
+    }
+
     /* Adjust placeholder/option text in selects */
     .stSelectbox select, .stSelectSlider div {
         color: #222 !important;
@@ -165,6 +170,7 @@ if st.button("🔍 Optimize!"):
         f"💰 Cost = {best[4]}\n\n"
         f"🔥 Fire = {best[1]} | ❄️ Frost = {best[2]} | ⚡ Shock = {best[3]}"
     )
+
 
 
 
