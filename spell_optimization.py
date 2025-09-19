@@ -80,7 +80,26 @@ st.markdown(
 
 
 # ---------------- Streamlit UI ----------------
-st.set_page_config(page_title="Oblivion Spell Optimizer", page_icon="⚡")
+st.set_page_config(page_title="Oblivion Spell Optimizer", page_icon="⚡", layout="centered")
+
+# Custom CSS for mobile readability
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #fffbea; /* soft yellowish off-white */
+    }
+    @media (max-width: 768px) {
+        h1 { font-size: 1.4em !important; }
+        h2, h3 { font-size: 1.1em !important; }
+        .stSlider label, .stNumberInput label, .stSelectbox label {
+            font-size: 0.9em !important;
+        }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Title banner
 st.markdown(
@@ -91,50 +110,39 @@ st.markdown(
 # Main inputs
 st.header("📜 Spell Parameters")
 
-col1, col2 = st.columns(2)
+budget = st.number_input("🔮 Magicka Budget", min_value=1, max_value=1000, value=100)
+duration = st.slider("⏳ Duration (s)", 1, 120, 4)
 
-with col1:
-    budget = st.number_input("🔮 Magicka Budget", min_value=1, max_value=1000, value=219)
-    duration = st.slider("⏳ Duration (s)", 1, 120, 4)
+# Area slider with custom step (0 or 10–100)
+area = st.select_slider(
+    "🌐 Area (0 = N/A)",
+    options=[0] + list(range(10, 101)),
+    value=0
+)
 
-with col2:
-    # area slider that jumps from 0 to 10
-    area = st.select_slider(
-        "🌐 Area (0 = N/A)",
-        options=[0] + list(range(10, 101)),
-        value=0
-    )
-
-    # cast type
-    cast_type = st.radio("🎯 Cast Type", ["On Touch (1x cost)", "On Target (1.5x cost)"])
-    cost_mult = 1.5 if "Target" in cast_type else 1.0
+# Cast type dropdown (better on mobile than radio)
+cast_type = st.selectbox("🎯 Range", ["On Touch (1x cost)", "On Target (1.5x cost)"])
+cost_mult = 1.5 if "Target" in cast_type else 1.0
 
 # Multipliers
 st.header("🔥 Element Effectiveness")
-col_fire, col_frost, col_shock = st.columns(3)
 
-with col_fire:
-    fire_mult = st.number_input("🔥 Fire", value=1.0, step=0.01)
-with col_frost:
-    frost_mult = st.number_input("❄️ Frost", value=0.9, step=0.01)
-with col_shock:
-    shock_mult = st.number_input("⚡ Shock", value=1.1, step=0.01)
+fire_mult = st.number_input("🔥 Fire Multiplier", value=1.0, step=0.01)
+frost_mult = st.number_input("❄️ Frost Multiplier", value=0.9, step=0.01)
+shock_mult = st.number_input("⚡ Shock Multiplier", value=1.1, step=0.01)
 
 # Effectiveness & Skills
 st.header("🎓 Caster Stats")
 
-col1, col2 = st.columns(2)
+skill_raw = st.slider("📘 Skill Level", min_value=0, max_value=100, value=100)
 
-with col1:
-    skill_raw = st.slider("📘 Skill Level", min_value=0, max_value=100, value=100)
-    spell_effectiveness = st.select_slider(
-        "✨ Spell Effectiveness (%)",
-        options=list(range(70, 96)) + [100],
-        value=95
-    )
+spell_effectiveness = st.select_slider(
+    "✨ Spell Effectiveness (%)",
+    options=list(range(70, 96)) + [100],
+    value=95
+)
 
-with col2:
-    luck = st.slider("🍀 Luck", min_value=0, max_value=120, value=50)
+luck = st.slider("🍀 Luck", min_value=0, max_value=120, value=50)
 
 # Adjust skill with luck
 skill = math.floor(skill_raw + (0.4 * (luck - 50)))
