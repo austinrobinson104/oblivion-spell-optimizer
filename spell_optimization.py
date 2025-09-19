@@ -53,7 +53,7 @@ st.markdown(
 
     /* Headers */
     h1, h2, h3 {
-        color: #b58900; /* golden yellow */
+        color: #333333; /* golden yellow */
     }
 
     /* Buttons */
@@ -145,3 +145,4 @@ if st.button("🔍 Optimize!"):
         f"💰 Cost = {best[4]}\n\n"
         f"🔥 Fire = {best[1]} | ❄️ Frost = {best[2]} | ⚡ Shock = {best[3]}"
     )
+
