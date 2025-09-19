@@ -41,59 +41,68 @@ def brute_force_near_budget(budget, max_mag, duration, area, fire_mult, frost_mu
     return best
 
 
-# Custom background & text colors
+# ---------------- Streamlit UI ----------------
+st.set_page_config(page_title="Oblivion Spell Optimizer", page_icon="⚡")
+
+# ---------------- Custom CSS ----------------
 st.markdown(
     """
     <style>
-    /* Main background */
+    /* Main app background */
     .stApp {
-        background-color: #fdf6e3; /* yellowish off-white */
-        color: #333333; /* dark gray text */
+        background-color: #fdf6e3; /* soft yellowish off-white */
+        color: #333333; /* dark gray default text */
     }
 
     /* Headers */
     h1, h2, h3 {
-        color: #333333; /* golden yellow */
+        color: #333333 !important;
     }
 
     /* Buttons */
     div.stButton > button:first-child {
-        background-color: #ffcc66;
-        color: black;
-        border-radius: 8px;
-        border: 1px solid #b58900;
+        background-color: #ffcc66 !important;
+        color: black !important;
+        border-radius: 8px !important;
+        border: 1px solid #b58900 !important;
     }
     div.stButton > button:hover {
-        background-color: #ffb84d;
-        color: black;
+        background-color: #ffb84d !important;
+        color: black !important;
     }
 
     /* Success box styling */
     .stSuccess {
-        background-color: #fff2cc;
-        border-left: 6px solid #b58900;
+        background-color: #fff2cc !important;
+        border-left: 6px solid #b58900 !important;
+        color: #333 !important;
+    }
+
+    /* General input text, sliders, selects, labels */
+    body, .stMarkdown, .stSlider, .stNumberInput, .stSelectbox, .stSelectSlider, label {
+        color: #222 !important; /* dark gray text */
+    }
+
+    /* Radio buttons labels */
+    .stRadio label, .stRadio div[role="radiogroup"] > label {
+        color: #222 !important;
+    }
+
+    /* Adjust placeholder/option text in selects */
+    .stSelectbox select, .stSelectSlider div {
+        color: #222 !important;
+    }
+
+    /* Slider handle and labels */
+    .stSlider .e1fqkh3o3, .stSlider label {
+        color: #222 !important;
     }
     </style>
     """,
     unsafe_allow_html=True
 )
 
-
-# ---------------- Streamlit UI ----------------
-st.set_page_config(page_title="Oblivion Spell Optimizer", page_icon="⚡")
-
-st.markdown(
-    """
-    <style>
-    body, .stMarkdown, .stSlider, .stNumberInput, .stSelectbox, .stRadio, label, .css-10trblm, .stSelectSlider {
-        color: #222 !important;   /* dark gray text */
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-# Title banner
+# ---------------- Title Banner ----------------
 st.markdown(
     "<h1 style='text-align: center; color: #ff4b4b;'>⚡ Oblivion Spell Optimizer ⚡</h1>",
     unsafe_allow_html=True
@@ -156,5 +165,6 @@ if st.button("🔍 Optimize!"):
         f"💰 Cost = {best[4]}\n\n"
         f"🔥 Fire = {best[1]} | ❄️ Frost = {best[2]} | ⚡ Shock = {best[3]}"
     )
+
 
 
