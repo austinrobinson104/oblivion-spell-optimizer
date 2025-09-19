@@ -82,6 +82,17 @@ st.markdown(
 # ---------------- Streamlit UI ----------------
 st.set_page_config(page_title="Oblivion Spell Optimizer", page_icon="⚡")
 
+st.markdown(
+    """
+    <style>
+    body, .stMarkdown, .stSlider, .stNumberInput, .stSelectbox, .stRadio, label, .css-10trblm, .stSelectSlider {
+        color: #222 !important;   /* dark gray text */
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # Title banner
 st.markdown(
     "<h1 style='text-align: center; color: #ff4b4b;'>⚡ Oblivion Spell Optimizer ⚡</h1>",
@@ -145,4 +156,5 @@ if st.button("🔍 Optimize!"):
         f"💰 Cost = {best[4]}\n\n"
         f"🔥 Fire = {best[1]} | ❄️ Frost = {best[2]} | ⚡ Shock = {best[3]}"
     )
+
 
