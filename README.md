@@ -1,6 +1,6 @@
 Finds the highest damage custom spell for a given set of parameters. How to use:
 
-Magicka Budget: Enter the magicka you are willing to spend on this spell.
+Magicka Budget: Enter the amount magicka you have reserved for damage effects.
 
 Duration, Area, Range: Pick the options you would on the spell creation menu.
 
