@@ -80,26 +80,7 @@ st.markdown(
 
 
 # ---------------- Streamlit UI ----------------
-st.set_page_config(page_title="Oblivion Spell Optimizer", page_icon="⚡", layout="centered")
-
-# Custom CSS for mobile readability
-st.markdown(
-    """
-    <style>
-    body {
-        background-color: #fffbea; /* soft yellowish off-white */
-    }
-    @media (max-width: 768px) {
-        h1 { font-size: 1.4em !important; }
-        h2, h3 { font-size: 1.1em !important; }
-        .stSlider label, .stNumberInput label, .stSelectbox label {
-            font-size: 0.9em !important;
-        }
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+st.set_page_config(page_title="Oblivion Spell Optimizer", page_icon="⚡")
 
 # Title banner
 st.markdown(
@@ -107,31 +88,32 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Main inputs
+# ---------------- Inputs ----------------
 st.header("📜 Spell Parameters")
 
+# Budget + Duration
 budget = st.number_input("🔮 Magicka Budget", min_value=1, max_value=1000, value=100)
-duration = st.slider("⏳ Duration (s)", 1, 120, 4)
+duration = st.slider("⏳ Duration (seconds)", 1, 120, 4)
 
-# Area slider with custom step (0 or 10–100)
+# Area
 area = st.select_slider(
-    "🌐 Area (0 = N/A)",
+    "🌐 Area (0 = N/A, otherwise 10–100)",
     options=[0] + list(range(10, 101)),
     value=0
 )
 
-# Cast type dropdown (better on mobile than radio)
-cast_type = st.selectbox("🎯 Range", ["On Touch (1x cost)", "On Target (1.5x cost)"])
+# Cast type
+cast_type = st.radio("🎯 Range", ["On Touch (1x cost)", "On Target (1.5x cost)"])
 cost_mult = 1.5 if "Target" in cast_type else 1.0
 
-# Multipliers
+# ---------------- Element multipliers ----------------
 st.header("🔥 Element Effectiveness")
 
 fire_mult = st.number_input("🔥 Fire Multiplier", value=1.0, step=0.01)
 frost_mult = st.number_input("❄️ Frost Multiplier", value=0.9, step=0.01)
 shock_mult = st.number_input("⚡ Shock Multiplier", value=1.1, step=0.01)
 
-# Effectiveness & Skills
+# ---------------- Caster Stats ----------------
 st.header("🎓 Caster Stats")
 
 skill_raw = st.slider("📘 Skill Level", min_value=0, max_value=100, value=100)
@@ -149,7 +131,7 @@ skill = math.floor(skill_raw + (0.4 * (luck - 50)))
 if skill > 100:
     skill = 100
 
-# Optimize button
+# ---------------- Optimize ----------------
 st.markdown("---")
 if st.button("🔍 Optimize!"):
     best = brute_force_near_budget(
