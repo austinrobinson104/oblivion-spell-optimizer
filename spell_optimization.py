@@ -15,17 +15,18 @@ def damage_after_effectiveness(mag, weight, eff):
 
 def brute_force_near_budget(budget, max_mag, duration, area, fire_mult, frost_mult, shock_mult, cost_mult, eff, skill):
     best = (0,0,0,0,0)  # (damage, fire, frost, shock, cost)
-    for fire in range(3, max_mag+1):
-        fire_cost  = spell_cost(0.75, fire, duration, area, cost_mult, skill)
-        fire_dmg   = damage_after_effectiveness(fire, fire_mult, eff)
-        if fire_cost > budget: 
-            break  # no point increasing further
+    
+    for frost in range(3, max_mag+1):
+        frost_cost = spell_cost(0.74, frost, duration, area, cost_mult, skill)
+        frost_dmg  = damage_after_effectiveness(frost, frost_mult, eff)
+        if frost_cost > budget:
+            break
 
-        for frost in range(3, max_mag+1):
-            frost_cost = spell_cost(0.74, frost, duration, area, cost_mult, skill)
-            frost_dmg  = damage_after_effectiveness(frost, frost_mult, eff)
-            if fire_cost + frost_cost > budget:
-                break
+        for fire in range(3, max_mag+1):
+            fire_cost  = spell_cost(0.75, fire, duration, area, cost_mult, skill)
+            fire_dmg   = damage_after_effectiveness(fire, fire_mult, eff)
+            if fire_cost + frost_cost > budget: 
+                break  # no point increasing further
 
             for shock in range(3, max_mag+1):
                 shock_cost = spell_cost(0.78, shock, duration, area, cost_mult, skill)
