@@ -78,6 +78,12 @@ st.markdown(
         color: #333 !important;
     }
 
+    /* Success box text color */
+    .stSuccess, 
+    .stSuccess * {
+        color: #222 !important;  /* dark gray */
+    }
+
     /* General input text, sliders, selects, labels */
     body, .stMarkdown, .stSlider, .stNumberInput, .stSelectbox, .stSelectSlider, label {
         color: #222 !important; /* dark gray text */
@@ -172,6 +178,7 @@ if st.button("🔍 Optimize!"):
         f"💰 Cost = {best[4]}\n\n"
         f"🔥 Fire = {best[1]} | ❄️ Frost = {best[2]} | ⚡ Shock = {best[3]}"
     )
+
 
 
 
