@@ -83,14 +83,16 @@ st.markdown(
         color: #222 !important; /* dark gray text */
     }
 
-    /* Radio buttons labels */
-    .stRadio label, .stRadio div[role="radiogroup"] > label {
+    /* Force all radio option text to dark gray */
+    .stRadio label, 
+    .stRadio label div, 
+    .stRadio label span {
         color: #222 !important;
     }
 
     /* Radio button option text */
     .stRadio div[role="radiogroup"] label > div > span {
-    color: #222 !important;  /* dark gray */
+        color: #222 !important;  /* dark gray */
     }
 
     /* Adjust placeholder/option text in selects */
@@ -170,6 +172,7 @@ if st.button("🔍 Optimize!"):
         f"💰 Cost = {best[4]}\n\n"
         f"🔥 Fire = {best[1]} | ❄️ Frost = {best[2]} | ⚡ Shock = {best[3]}"
     )
+
 
 
 
