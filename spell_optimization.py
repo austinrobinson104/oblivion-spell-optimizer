@@ -75,17 +75,16 @@ st.markdown(
         color: black !important;
     }
 
-    /* Success box styling */
-    .stSuccess {
+    /* Success & Info box styling */
+    .stSuccess, .stInfo {
         background-color: #fff2cc !important;
         border-left: 6px solid #b58900 !important;
-        color: #333 !important;
+        color: #222 !important;
     }
 
-    /* Success box text color */
-    .stSuccess, 
-    .stSuccess * {
-        color: #222 !important;  /* dark gray */
+    /* Force ALL text inside success/info boxes to dark */
+    .stSuccess *, .stInfo * {
+        color: #222 !important;
     }
 
     /* General input text, sliders, selects, labels */
@@ -93,19 +92,14 @@ st.markdown(
         color: #222 !important; /* dark gray text */
     }
 
-    /* Force all radio option text to dark gray */
+    /* Radio options */
     .stRadio label, 
     .stRadio label div, 
     .stRadio label span {
         color: #222 !important;
     }
 
-    /* Radio button option text */
-    .stRadio div[role="radiogroup"] label > div > span {
-        color: #222 !important;  /* dark gray */
-    }
-
-    /* Adjust placeholder/option text in selects */
+    /* Select placeholders */
     .stSelectbox select, .stSelectSlider div {
         color: #222 !important;
     }
@@ -218,3 +212,4 @@ if st.button("📊 Calculate Spell"):
         f"❄️ Frost = {frost_mag} (Cost {frost_cost}, Dmg {frost_dmg})\n"
         f"⚡ Shock = {shock_mag} (Cost {shock_cost}, Dmg {shock_dmg})"
     )
+
