@@ -16,19 +16,19 @@ def damage_after_effectiveness(mag, weight, eff):
 def brute_force_near_budget(budget, max_mag, duration, area, fire_mult, frost_mult, shock_mult, cost_mult, eff, skill):
     best = (0,0,0,0,0)  # (damage, fire, frost, shock, cost)
     
-    for frost in range(3, max_mag+1):
+    for frost in [0] + list(range(3, max_mag+1)):
         frost_cost = spell_cost(0.74, frost, duration, area, cost_mult, skill)
         frost_dmg  = damage_after_effectiveness(frost, frost_mult, eff)
         if frost_cost > budget:
             break
 
-        for fire in range(3, max_mag+1):
+        for fire in [0] + list(range(3, max_mag+1)):
             fire_cost  = spell_cost(0.75, fire, duration, area, cost_mult, skill)
             fire_dmg   = damage_after_effectiveness(fire, fire_mult, eff)
             if fire_cost + frost_cost > budget: 
                 break  # no point increasing further
 
-            for shock in range(3, max_mag+1):
+            for shock in [0] + list(range(3, max_mag+1)):
                 shock_cost = spell_cost(0.78, shock, duration, area, cost_mult, skill)
                 total_cost = fire_cost + frost_cost + shock_cost
 
@@ -121,7 +121,7 @@ st.markdown(
 
 # ---------------- Title Banner ----------------
 st.markdown(
-    "<h1 style='text-align: center; color: #ff4b4b;'>⚡ Oblivion Spell Optimizer ⚡</h1>",
+    "<h1 style='text-align: center; color: #ff4b4b;'> Oblivion Spell Optimizer </h1>",
     unsafe_allow_html=True
 )
 
@@ -186,8 +186,35 @@ if st.button("🔍 Optimize!"):
         f"🔥 Fire = {best[1]} | ❄️ Frost = {best[2]} | ⚡ Shock = {best[3]}"
     )
 
+# ---------------- Manual Spell Tester ----------------
+st.markdown("---")
+st.header("🧪 Manual Spell Tester")
 
+col1, col2, col3 = st.columns(3)
+with col1:
+    fire_mag = st.number_input("🔥 Fire Magnitude", min_value=0, max_value=100, value=0)
+with col2:
+    frost_mag = st.number_input("❄️ Frost Magnitude", min_value=0, max_value=100, value=0)
+with col3:
+    shock_mag = st.number_input("⚡ Shock Magnitude", min_value=0, max_value=100, value=0)
 
+if st.button("📊 Calculate Spell"):
+    # Costs
+    fire_cost = spell_cost(0.75, fire_mag, duration, area, cost_mult, skill)
+    frost_cost = spell_cost(0.74, frost_mag, duration, area, cost_mult, skill)
+    shock_cost = spell_cost(0.78, shock_mag, duration, area, cost_mult, skill)
+    total_cost = fire_cost + frost_cost + shock_cost
 
+    # Damage
+    fire_dmg = damage_after_effectiveness(fire_mag, fire_mult, eff)
+    frost_dmg = damage_after_effectiveness(frost_mag, frost_mult, eff)
+    shock_dmg = damage_after_effectiveness(shock_mag, shock_mult, eff)
+    total_dmg = duration * (fire_dmg + frost_dmg + shock_dmg)
 
-
+    st.info(
+        f"💥 **Total Damage = {total_dmg}**\n\n"
+        f"💰 **Total Cost = {total_cost}**\n\n"
+        f"🔥 Fire = {fire_mag} (Cost {fire_cost}, Dmg {fire_dmg})\n"
+        f"❄️ Frost = {frost_mag} (Cost {frost_cost}, Dmg {frost_dmg})\n"
+        f"⚡ Shock = {shock_mag} (Cost {shock_cost}, Dmg {shock_dmg})"
+    )
