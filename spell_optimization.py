@@ -206,9 +206,9 @@ if st.button("📊 Calculate Spell"):
     total_cost = fire_cost + frost_cost + shock_cost
 
     # Damage
-    fire_dmg = damage_after_effectiveness(fire_mag, fire_mult, eff)
-    frost_dmg = damage_after_effectiveness(frost_mag, frost_mult, eff)
-    shock_dmg = damage_after_effectiveness(shock_mag, shock_mult, eff)
+    fire_dmg = damage_after_effectiveness(fire_mag, fire_mult, spell_effectiveness)
+    frost_dmg = damage_after_effectiveness(frost_mag, frost_mult, spell_effectiveness)
+    shock_dmg = damage_after_effectiveness(shock_mag, shock_mult, spell_effectiveness)
     total_dmg = duration * (fire_dmg + frost_dmg + shock_dmg)
 
     st.info(
@@ -218,3 +218,4 @@ if st.button("📊 Calculate Spell"):
         f"❄️ Frost = {frost_mag} (Cost {frost_cost}, Dmg {frost_dmg})\n"
         f"⚡ Shock = {shock_mag} (Cost {shock_cost}, Dmg {shock_dmg})"
     )
+
