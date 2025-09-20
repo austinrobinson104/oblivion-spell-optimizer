@@ -11,7 +11,7 @@ def spell_cost(base_cost, mag, duration, area, cost_mult, skill):
 
 def damage_after_effectiveness(mag, weight, eff):
     # 95% effectiveness, rounded down
-    return round(math.floor((eff/100.0) * mag) * weight, 2)
+    return round(math.floor((eff/100.0) * mag) * weight, 3)
 
 def brute_force_near_budget(budget, max_mag, duration, area, fire_mult, frost_mult, shock_mult, cost_mult, eff, skill):
     best = (0,0,0,0,0)  # (damage, fire, frost, shock, cost)
@@ -218,5 +218,3 @@ if st.button("📊 Calculate Spell"):
         f"❄️ Frost = {frost_mag} (Cost {frost_cost}, Dmg {frost_dmg})\n"
         f"⚡ Shock = {shock_mag} (Cost {shock_cost}, Dmg {shock_dmg})"
     )
-
-
